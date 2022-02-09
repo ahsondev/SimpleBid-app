@@ -28,20 +28,17 @@ function Home(props: PropsType) {
     try {
       if (wnd.ethereum && contract) {
         console.log(web3.utils);
-        let addr = wnd.ethereum.selectedAddress;
-        let to = addr;
-        let value = 1;
-        let r;
-        let s;
-        let v;
+        const addr = wnd.ethereum.selectedAddress;
+        const to = addr;
+        const value = 1;
 
         const hashedPayload = web3.utils.soliditySha3(web3.utils.encodePacked(to, value));
         const paddedMessage = web3.utils.soliditySha3("\x19Ethereum Signed Message:\n32", hashedPayload);
 
-        let sig = String(await web3.eth.sign(paddedMessage, addr)).slice(2);
-        r = `0x${sig.slice(0, 64)}`
-        s = `0x${sig.slice(64, 128)}`
-        v = web3.utils.toDecimal('0x' + sig.slice(128, 130)) 
+        const sig = String(await web3.eth.sign(paddedMessage, addr)).slice(2);
+        const r = `0x${sig.slice(0, 64)}`
+        const s = `0x${sig.slice(64, 128)}`
+        const v = web3.utils.toDecimal('0x' + sig.slice(128, 130)) 
 
         const tx = {
           from: addr,
